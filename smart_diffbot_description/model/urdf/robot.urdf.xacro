@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<robot name="smart_diffbot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Utils -->
+  <xacro:include filename="$(find smart_diffbot_description)/model/urdf/utils.urdf.xacro" />
+
+  <!-- Robot model -->
+  <xacro:include filename="$(find smart_diffbot_description)/model/urdf/model.urdf.xacro" />
+
+  <!-- Simulation interface -->
+  <xacro:include filename="$(find smart_diffbot_description)/model/urdf/sim_interface.urdf.xacro" />
+
+</robot>
