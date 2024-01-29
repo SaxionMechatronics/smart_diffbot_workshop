@@ -24,13 +24,7 @@ def generate_launch_description():
     launch_localization = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_localization'), 'launch', 'localization.launch.py')]),
     )
-
-    ## Launch navigation
-    launch_navigation = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            os.path.join(get_package_share_directory(robot+'_navigation'), 'launch', 'navigation.launch.py')]),
-    )
-
+    
 
     ## Launch description
     return LaunchDescription([
@@ -39,6 +33,5 @@ def generate_launch_description():
         launch_simulation,
         launch_control,
         launch_localization,
-        launch_navigation,
     ])
     
