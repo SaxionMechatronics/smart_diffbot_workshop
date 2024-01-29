@@ -25,16 +25,19 @@ class DockingClient(Node):
     def send_goal(self):
         goal_msg = NavigateToPose.Goal()
 
+        # Behavior tree to use 
         goal_msg.behavior_tree = os.path.join(
             get_package_share_directory('smart_diffbot_navigation'), 
             'behavior_trees', 'navigate_docking.xml')
 
+        # Navigate to a point in front of docking station
         pose_msg = PoseStamped()
         pose_msg.header.frame_id = "map"
-        pose_msg.pose.position.x = 8.0
+        pose_msg.pose.position.x = 0.0
         pose_msg.pose.position.y = 0.0
         goal_msg.pose = pose_msg
 
+        # Send goal
         self.get_logger().info('Waiting for Nav2 action server to come online...')
         self.nav_client.wait_for_server()
         self.get_logger().info('Nav2 action server available, sending docking goal...')

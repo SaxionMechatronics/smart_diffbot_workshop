@@ -3,7 +3,7 @@
     <RecoveryNode number_of_retries="6" name="NavigateRecovery">
       <PipelineSequence name="NavigateWithReplanning">
         <RateController hz="1">
-          <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+          <ComputePathToPose goal="{goal}" path="{path}" planner_id="StraightLine"/>
         </RateController>
         <FollowPath path="{path}" controller_id="FollowPath"/>
       </PipelineSequence>
