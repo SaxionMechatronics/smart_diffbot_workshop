@@ -72,6 +72,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        camera_body_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_lens_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         camera_link:
           Alpha: 1
           Show Axes: false
@@ -116,6 +126,10 @@ Visualization Manager:
           Value: false
         base_link:
           Value: true
+        camera_body_link:
+          Value: false
+        camera_lens_link:
+          Value: false
         camera_link:
           Value: false
         caster:
@@ -145,8 +159,10 @@ Visualization Manager:
             base_link:
               base_footprint:
                 {}
-              camera_link:
-                {}
+              camera_body_link:
+                camera_lens_link:
+                  camera_link:
+                    {}
               caster:
                 {}
               imu_link:
@@ -237,7 +253,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 74.6263198852539
+      Distance: 61.25804138183594
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -275,5 +291,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1850
-  X: 1990
-  Y: 27
+  X: 195
+  Y: 256
