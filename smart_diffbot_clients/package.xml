@@ -4,14 +4,15 @@
   <name>smart_diffbot_clients</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="k.j.vanteeffelen@saxion.nl">kees</maintainer>
+  <maintainer email="k.j.vanteeffelen@saxion.nl">Kees van Teeffelen</maintainer>
   <license>TODO: License declaration</license>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
-  
+
+  <depend>geometry_msgs</depend>
   <depend>nav2_msgs</depend>
 
   <export>
