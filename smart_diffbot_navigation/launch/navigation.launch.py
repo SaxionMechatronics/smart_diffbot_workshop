@@ -66,7 +66,7 @@ def generate_launch_description():
     )
     
     bt_navigator = Node(
-        package='smart_diffbot_navigation',
+        package='nav2_bt_navigator',
         executable='bt_navigator',
         name='bt_navigator',
         output='screen',

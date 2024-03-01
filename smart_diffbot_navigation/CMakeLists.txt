@@ -72,44 +72,6 @@ install(DIRECTORY
   share/${PROJECT_NAME}/
 )
 
-# Navigators (contents cannot be pluginized yet in Humble so we need our own)
-set(executable_name bt_navigator)
-add_executable(${executable_name}
-  src/navigator_plugins/main.cpp
-)
-set(navigator_library_name ${executable_name}_core)
-
-add_library(${navigator_library_name} SHARED
-  src/navigator_plugins/bt_navigator.cpp            # copied from Nav2
-  src/navigator_plugins/navigate_to_pose.cpp        # copied from Nav2
-  src/navigator_plugins/navigate_through_poses.cpp  # copied from Nav2
-  src/navigator_plugins/exact_path_navigator.cpp
-  src/navigator_plugins/docking_navigator.cpp 
-)
-
-ament_target_dependencies(${executable_name}
-  ${dependencies}
-)
-
-target_link_libraries(${executable_name} ${navigator_library_name})
-
-ament_target_dependencies(${navigator_library_name}
-  ${dependencies}
-)
-
-rclcpp_components_register_nodes(${navigator_library_name} "smart_diffbot_navigation::BtNavigator")
-
-install(TARGETS ${navigator_library_name}
-  ARCHIVE DESTINATION lib
-  LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
-)
-
-install(TARGETS ${executable_name}
-  RUNTIME DESTINATION lib/${PROJECT_NAME}
-)
-
-
 # Plugins (planners, controllers, behaviors)
 set(plugin_library_name ${PROJECT_NAME}_plugin)
 
@@ -173,7 +135,6 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_include_directories(include)
-ament_export_libraries(${navigator_library_name})
 ament_export_libraries(${plugin_library_name})
 ament_export_libraries(${bt_plugin_libs})
 ament_export_dependencies(${dependencies})
