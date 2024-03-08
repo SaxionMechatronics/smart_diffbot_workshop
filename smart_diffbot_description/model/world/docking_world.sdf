@@ -131,14 +131,6 @@
       <static>true</static>
       <pose>10 0 0.7 0 0 0</pose>
       <link name="tag_link">
-        <collision name="tag_collision">
-          <geometry>
-            <plane>
-              <normal>-1 0 0</normal>
-              <size>0.3 0.3</size>
-            </plane>
-          </geometry>
-        </collision>
         <visual name="tag_visual">
           <geometry>
             <plane>
