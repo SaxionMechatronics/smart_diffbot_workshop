@@ -14,18 +14,12 @@ def generate_launch_description():
     launch_simulation = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_bringup'), 'launch', 'simulation.launch.py')]),
     )
-
-    ## Launch control
-    launch_control = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_control'), 'launch', 'control.launch.py')]),
-    )
-
+ 
  
     ## Launch description
     return LaunchDescription([
 
         # Launch
         launch_simulation,
-        launch_control,
     ])
     
