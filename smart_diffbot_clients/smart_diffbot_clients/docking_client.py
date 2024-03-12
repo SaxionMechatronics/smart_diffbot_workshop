@@ -19,7 +19,7 @@ class DockingClient(Node):
     def start(self):
 
         # Start action client
-        self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_dock')
+        self.nav_client = ActionClient(self, NavigateToPose, '/navigate_to_pose')
 
     def send_goal(self):
         goal_msg = NavigateToPose.Goal()
