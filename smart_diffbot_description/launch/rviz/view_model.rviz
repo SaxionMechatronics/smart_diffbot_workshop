@@ -81,7 +81,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
         camera_link:
           Alpha: 1
           Show Axes: false
@@ -220,9 +219,9 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.11538979411125183
-        Y: 0.0679594874382019
-        Z: 0.4020006060600281
+        X: 0.07973051816225052
+        Y: 0.005888825282454491
+        Z: 0.544742226600647
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false

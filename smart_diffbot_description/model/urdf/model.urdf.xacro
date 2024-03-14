@@ -38,7 +38,7 @@
   <!--                                         -->
 
   <xacro:property name="camera_width" value="0.0"/>
-  <xacro:property name="camera_depth" value="0.0"/>
+  <xacro:property name="camera_length" value="0.0"/>
   <xacro:property name="camera_height" value="0.0"/>
   <xacro:property name="lens_radius" value="0.0"/>
   <xacro:property name="lens_length" value="0.0"/>
@@ -56,8 +56,8 @@
         <!-- Insert camera body shape -->
       </geometry>
     </collision>
-        <!-- Insert camera body inertia -->
-    </link>
+    <!-- Insert camera body inertia -->
+  </link>
 
   <!-- Camera lens -->
   <link name="camera_lens_link">
@@ -73,19 +73,19 @@
         <!-- Insert camera lens shape -->
       </geometry>
     </collision>
-        <!-- Insert camera lens inertia -->
+    <!-- Insert camera lens inertia -->
   </link>
 
   <!-- Joint connecting camera lens to camera body -->
   <joint name="camera_lens_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="1 0 0" rpy="0 0 0"/>
     <parent link="camera_body_link"/>
     <child link="camera_lens_link"/>
   </joint>
 
   <!-- Joint connecting camera body to robot base_link -->
   <joint name="camera_body_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="camera_body_link"/>
   </joint>
