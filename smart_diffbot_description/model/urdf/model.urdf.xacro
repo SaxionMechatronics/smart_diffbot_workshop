@@ -37,66 +37,55 @@
   <!-- Start of camera on top of smart_diffbot -->
   <!--                                         -->
 
-  <xacro:property name="camera_width" value="0.2"/>
-  <xacro:property name="camera_depth" value="0.05"/>
-  <xacro:property name="camera_height" value="0.1"/>
-  <xacro:property name="lens_radius" value="0.03"/>
-  <xacro:property name="lens_length" value="0.02"/>
+  <xacro:property name="camera_width" value="0.0"/>
+  <xacro:property name="camera_depth" value="0.0"/>
+  <xacro:property name="camera_height" value="0.0"/>
+  <xacro:property name="lens_radius" value="0.0"/>
+  <xacro:property name="lens_length" value="0.0"/>
 
   <!-- Camera body -->
   <link name="camera_body_link">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="${camera_depth} ${camera_width} ${camera_height}" />
+        <!-- Insert camera body shape -->
       </geometry>
-      <material name="black" />
-    </visual>
+        <!-- Insert camera body color -->
+      </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="${camera_depth} ${camera_width} ${camera_height}" />
+        <!-- Insert camera body shape -->
       </geometry>
     </collision>
-    <xacro:box_inertia m="1.0" w="${camera_width}" d="${camera_depth}" h="${camera_height}"/>
-  </link>
+        <!-- Insert camera body inertia -->
+    </link>
 
   <!-- Camera lens -->
   <link name="camera_lens_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
       <geometry>
-        <cylinder radius="${lens_radius}" length="${lens_length}" />
+        <!-- Insert camera lens shape -->
       </geometry>
-      <material name="white" />
+      <!-- Insert camera lens color -->
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="${lens_radius}" length="${lens_length}" />
+        <!-- Insert camera lens shape -->
       </geometry>
     </collision>
-    <xacro:cylinder_inertia m="0.1" r="${lens_radius}" h="${lens_length}"/>
+        <!-- Insert camera lens inertia -->
   </link>
 
-  <!-- Camera sensor link -->
-  <link name="camera_link"/>
-
-  <!-- Camera joints -->
-  <joint name="camera_sensor_joint" type="fixed">
-    <origin xyz="${lens_length/2.0 + 0.1} 0 0" rpy="0 0 0"/>
-    <parent link="camera_lens_link"/>
-    <child link="camera_link"/>
-  </joint>
-
+  <!-- Joint connecting camera lens to camera body -->
   <joint name="camera_lens_joint" type="fixed">
-    <origin xyz="${camera_depth/2.0} 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="camera_body_link"/>
     <child link="camera_lens_link"/>
   </joint>
 
+  <!-- Joint connecting camera body to robot base_link -->
   <joint name="camera_body_joint" type="fixed">
-    <origin xyz="${base_length/2.0 - camera_depth/2.0} 0 ${base_height/2.0 + camera_height/2.0}" rpy="0 0 0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="camera_body_link"/>
   </joint>
@@ -109,6 +98,7 @@
   <!-- Other sensor links (not visualized) -->
   <link name="imu_link"/>
   <link name="navsat_link"/>
+  <link name="camera_link"/>
 
   <!-- Wheel links -->
   <xacro:wheel name="left_wheel" width="${wheel_width}" radius="${wheel_radius}" mass="1.0" color="white"/>
@@ -148,6 +138,12 @@
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="navsat_link"/>
+  </joint>
+
+  <joint name="camera_sensor_joint" type="fixed">
+    <origin xyz="${lens_length/2.0 + 0.1} 0 0" rpy="0 0 0"/>
+    <parent link="camera_lens_link"/>
+    <child link="camera_link"/>
   </joint>
 
   <joint name="left_wheel_joint" type="continuous">
