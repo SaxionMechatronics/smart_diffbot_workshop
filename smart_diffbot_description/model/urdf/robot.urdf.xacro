@@ -8,4 +8,7 @@
   <!-- Robot model -->
   <xacro:include filename="$(find smart_diffbot_description)/model/urdf/model.urdf.xacro" />
 
+  <!-- Simulation interface -->
+  <xacro:include filename="$(find smart_diffbot_description)/model/urdf/sim_interface.urdf.xacro" />
+
 </robot>

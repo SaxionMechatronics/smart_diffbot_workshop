@@ -1,0 +1,25 @@
+import os
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from ament_index_python.packages import get_package_share_directory
+
+
+robot = 'smart_diffbot'
+
+
+def generate_launch_description():
+
+    ## Launch simulation
+    launch_simulation = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_bringup'), 'launch', 'simulation.launch.py')]),
+    )
+ 
+ 
+    ## Launch description
+    return LaunchDescription([
+
+        # Launch
+        launch_simulation,
+    ])
+    
