@@ -57,10 +57,9 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=['/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
-                   '/camera/image_raw@sensor_msgs/msg/Image[ignition.msgs.Image',
-                   '/camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo',
                    '/navsat/fix@sensor_msgs/msg/NavSatFix[ignition.msgs.NavSat',
-                   '/imu/data@sensor_msgs/msg/Imu[ignition.msgs.IMU'],
+                   '/imu/data@sensor_msgs/msg/Imu[ignition.msgs.IMU',
+                   ],
         output='screen',
     )
 

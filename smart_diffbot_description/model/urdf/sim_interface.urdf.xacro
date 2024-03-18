@@ -19,16 +19,6 @@
 
   
   <!-- Sensor simulation -->
-  <gazebo reference="camera_link">
-    <sensor name="camera" type="camera">       
-      <always_on>1</always_on>
-      <update_rate>15</update_rate>
-      <visualize>true</visualize>
-      <topic>camera/image_raw</topic>
-      <ignition_frame_id>camera_link</ignition_frame_id>
-    </sensor>
-  </gazebo>
-
   <gazebo reference="navsat_link">
     <sensor name="navsat" type="navsat">
       <always_on>1</always_on>
@@ -42,10 +32,9 @@
     <sensor name="imu" type="imu">
       <always_on>1</always_on>
       <update_rate>15</update_rate>
-      <visualize>false</visualize>
       <topic>imu/data</topic>
       <ignition_frame_id>imu_link</ignition_frame_id>
-  </sensor>
+    </sensor>
   </gazebo>
 
   <!-- No friction on fixed caster wheel -->
