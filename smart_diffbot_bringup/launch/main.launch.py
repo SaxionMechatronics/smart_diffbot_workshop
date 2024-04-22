@@ -39,6 +39,9 @@ def generate_launch_description():
     ## Launch control
     launch_control = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_control'), 'launch', 'control.launch.py')]),
+        launch_arguments={
+            "sim": sim,
+        }.items(),
     )
 
     ## Launch localization
@@ -60,7 +63,7 @@ def generate_launch_description():
         launch_simulation,
         launch_hardware,
         launch_control,
-        launch_localization,
-        launch_navigation,
+        # launch_localization,
+        # launch_navigation,
     ])
     
