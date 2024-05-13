@@ -37,15 +37,7 @@ def generate_launch_description():
         remappings=[('odometry/filtered', 'global_ekf/odometry_filtered'),
                     ]
     )
-
-    # Marker detection
-    marker_detection_node = Node(
-        package='ros2_aruco',
-        executable='aruco_node',
-        name='marker_detection_node',
-        parameters=[localization_params],
-    )
-
+    
 
     ## Launch description
     return LaunchDescription([
@@ -53,6 +45,6 @@ def generate_launch_description():
         # Nodes
         navsat_transform_node,
         global_ekf_node,
-        marker_detection_node,
+
     ])
     
