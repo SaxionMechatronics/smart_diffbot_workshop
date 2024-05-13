@@ -11,6 +11,15 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+velocity_controller:
+  ros__parameters:
+  
+    joints:
+      - left_wheel_joint
+      - right_wheel_joint
 
 diff_drive_controller:
   ros__parameters:
