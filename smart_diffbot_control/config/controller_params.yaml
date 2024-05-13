@@ -5,26 +5,20 @@ controller_manager:
 
     update_rate: 50
 
-    left_position_controller:
-      type: position_controllers/JointGroupPositionController
-
-    right_velocity_controller:
-      type: velocity_controllers/JointGroupVelocityController
-
     diff_drive_controller:
       type: diff_drive_controller/DiffDriveController
     
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-left_position_controller:
+    velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+velocity_controller:
   ros__parameters:
+  
     joints:
       - left_wheel_joint
-
-right_velocity_controller:
-  ros__parameters:
-    joints:
       - right_wheel_joint
 
 diff_drive_controller:
