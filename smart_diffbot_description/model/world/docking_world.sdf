@@ -135,7 +135,7 @@
           <geometry>
             <plane>
               <normal>-1 0 0</normal>
-              <size>0.3 0.3</size>
+              <size>0.2 0.2</size>
             </plane>
           </geometry>
           <material>
