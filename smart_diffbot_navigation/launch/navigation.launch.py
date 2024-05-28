@@ -5,7 +5,7 @@ from ament_index_python.packages import get_package_share_directory
 
 
 robot = 'smart_diffbot'
-global_costmap = 'empty'
+global_costmap = 'obstacles' 
 
 
 def generate_launch_description():

@@ -32,7 +32,7 @@ class DockingClient(Node):
         # Navigate to a point in front of docking station
         pose_msg = PoseStamped()
         pose_msg.header.frame_id = "map"
-        pose_msg.pose.position.x = 0.0
+        pose_msg.pose.position.x = 5.0
         pose_msg.pose.position.y = 0.0
         goal_msg.pose = pose_msg
 
