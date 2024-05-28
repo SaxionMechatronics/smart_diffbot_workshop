@@ -13,8 +13,6 @@ find_package(action_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "action/ApproachDock.action"
   "action/Dock.action"
-  "action/NavigateDocking.action"
-  "action/NavigateExactPath.action"
   DEPENDENCIES builtin_interfaces geometry_msgs std_msgs action_msgs nav_msgs
 )
 
