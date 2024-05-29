@@ -60,7 +60,7 @@ class DockingClient(Node):
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
-        self.get_logger().info(f"Navigating... Distance remaining: {int(feedback.distance_remaining)} meters", 
+        self.get_logger().info(f"Navigating...", 
                                throttle_duration_sec=1)
         time.sleep(1)
 
