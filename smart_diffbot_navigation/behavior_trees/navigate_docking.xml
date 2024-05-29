@@ -32,24 +32,25 @@
       <RecoveryNode number_of_retries="10" name="ApproachDockRecovery">
 
         <!-- Approach action-->
-        <ApproachDock distance="1.0" speed="0.2" marker_id="1"/>
+        <ApproachDock marker_id="1"/>
 
         <!-- Recovery -->
         <Fallback name="ApproachDockRecoveryFallback">
-          <Spin spin_dist="0.7"/>
+          <!-- What should the robot do when it lost sight of the marker? -->
         </Fallback>
 
       </RecoveryNode>
+
 
       <!-- Dock -->
       <RecoveryNode number_of_retries="3" name="DockRecovery">
 
         <!-- Dock action-->
-        <Dock distance="0.5" speed="0.1" marker_id="1"/>
+        <Dock marker_id="1"/>
 
         <!-- Recovery -->
         <Fallback name="DockRecoveryFallback">
-            <BackUp backup_dist="0.30" backup_speed="0.05"/>
+          <!-- What should the robot do when it lost sight of the marker? -->
         </Fallback>
 
       </RecoveryNode>
