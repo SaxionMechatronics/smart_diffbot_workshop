@@ -2,6 +2,9 @@
 
 <robot name="smart_diffbot" xmlns:xacro="http://ros.org/wiki/xacro">
 
+  <!-- Arguments -->
+  <xacro:arg name="sim" default="true"/>
+
   <!-- Utils -->
   <xacro:include filename="$(find smart_diffbot_description)/model/urdf/utils.urdf.xacro" />
 
@@ -9,6 +12,13 @@
   <xacro:include filename="$(find smart_diffbot_description)/model/urdf/model.urdf.xacro" />
 
   <!-- Simulation interface -->
-  <xacro:include filename="$(find smart_diffbot_description)/model/urdf/sim_interface.urdf.xacro" />
+  <xacro:if value="$(arg sim)">
+    <xacro:include filename="$(find smart_diffbot_description)/model/urdf/sim_interface.urdf.xacro" />
+  </xacro:if>
+
+  <!-- Hardware interface -->
+  <xacro:unless value="$(arg sim)">
+    <xacro:include filename="$(find smart_diffbot_description)/model/urdf/hardware.urdf.xacro" />
+  </xacro:unless>
 
 </robot>
