@@ -1,6 +1,6 @@
 # SMART ROS 2 workshop
 
-## Launch simulation with keyboard controller
+## Launch simulation
 
 ```bash
 ros2 launch smart_diffbot_bringup main.launch.py 
@@ -11,7 +11,7 @@ ros2 launch smart_diffbot_bringup main.launch.py
 ros2 launch smart_diffbot_control rviz.launch.py 
 ```
 
-## Send docking command
+## Start keyboard controller
 ```bash
 ros2 run smart_diffbot_control keyboard_input 
 ```
