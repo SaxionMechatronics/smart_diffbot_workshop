@@ -35,13 +35,13 @@ def generate_launch_description():
     pos_controller = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["left_position_controller", "--inactive"],
+        arguments=["camera_controller"],
     )
 
     vel_controller = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["right_velocity_controller", "--inactive"],
+        arguments=["velocity_controller", "--inactive"],
     )
 
     diff_drive_spawner = Node(
