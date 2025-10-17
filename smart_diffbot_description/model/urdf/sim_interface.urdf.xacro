@@ -22,6 +22,21 @@
       <state_interface name="position"/>
       <state_interface name="velocity"/>
     </joint>
+    <joint name="camera_base_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="camera_link_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="camera_top_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
   </ros2_control>
 
 
@@ -48,13 +63,13 @@
 
   
   <!-- Sensor simulation -->
-  <gazebo reference="camera_link">
+  <gazebo reference="sensor_link">
     <sensor name="camera" type="camera">       
       <always_on>1</always_on>
       <update_rate>15</update_rate>
       <visualize>true</visualize>
       <topic>camera/image_raw</topic>
-      <ignition_frame_id>camera_link</ignition_frame_id>
+      <ignition_frame_id>sensor_link</ignition_frame_id>
     </sensor>
   </gazebo>
 
