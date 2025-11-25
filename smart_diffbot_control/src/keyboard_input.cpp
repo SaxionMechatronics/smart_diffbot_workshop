@@ -41,6 +41,8 @@
 #include <termios.h>
 #include <unistd.h>
 
+using namespace std::chrono_literals;
+
 // Define used keys
 namespace
 {
@@ -111,9 +113,24 @@ private:
 
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr twist_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr joint_pub_;
+  rclcpp::TimerBase::SharedPtr stale_timer_;
   double joint_delta_;
   std::vector<double> joint_values_;
   std::string command_frame_id_;
+
+  void timer_callback()
+  {
+    auto joint_msg = std::make_unique<std_msgs::msg::Float64MultiArray>();
+    auto twist_msg = std::make_unique<geometry_msgs::msg::Twist>();
+
+    joint_msg->data.resize(3);
+    std::fill(joint_msg->data.begin(), joint_msg->data.end(), 0.0);
+
+    joint_pub_->publish(std::move(joint_msg));
+    twist_pub_->publish(std::move(twist_msg));
+    RCLCPP_DEBUG(nh_->get_logger(), "No input, set to zero velocity");
+    stale_timer_.reset(); // only execute once
+  }
 };
 
 KeyboardInterface::KeyboardInterface() : joint_delta_(0.5), joint_values_({0.0, 0.0, 0.0})
@@ -219,22 +236,26 @@ int KeyboardInterface::keyLoop()
         break;
       case KEYCODE_A:
         RCLCPP_DEBUG(nh_->get_logger(), "A");
-        joint_values_[0] += joint_delta_;
+        joint_values_[0] = 0.5;
+        // joint_values_[0] += joint_delta_;
         publish_joint = true;
         break;
       case KEYCODE_D:
         RCLCPP_DEBUG(nh_->get_logger(), "D");
-        joint_values_[0] -= joint_delta_;
+        joint_values_[0] = - 0.5;
+        // joint_values_[0] -= joint_delta_;
         publish_joint = true;
         break;
       case KEYCODE_W:
         RCLCPP_DEBUG(nh_->get_logger(), "W");
-        joint_values_[2] -= joint_delta_;
+        joint_values_[2] = -0.5;
+        // joint_values_[2] -= joint_delta_;
         publish_joint = true;
         break;
       case KEYCODE_S:
         RCLCPP_DEBUG(nh_->get_logger(), "S");
-        joint_values_[2] += joint_delta_;
+        joint_values_[2] = 0.5;
+        // joint_values_[2] += joint_delta_;
         publish_joint = true;
         break;
       case KEYCODE_Q:
@@ -248,6 +269,7 @@ int KeyboardInterface::keyLoop()
     // If a key requiring a publish was pressed, publish the message now
     if (publish_twist)
     {
+      stale_timer_ = nh_->create_wall_timer(500ms, std::bind(&KeyboardInterface::timer_callback, this)); //reset the timer (0 velocity will be send if no command is received within stale period)
       twist_pub_->publish(std::move(twist_msg));
       publish_twist = false;
     }
@@ -256,6 +278,7 @@ int KeyboardInterface::keyLoop()
       joint_msg->data[0] = joint_values_[0];
       joint_msg->data[1] = joint_values_[1];
       joint_msg->data[2] = joint_values_[2];
+      stale_timer_ = nh_->create_wall_timer(500ms, std::bind(&KeyboardInterface::timer_callback, this)); //reset the timer (0 velocity will be send if no command is received within stale period)
       joint_pub_->publish(std::move(joint_msg));
       publish_joint = false;
     }
