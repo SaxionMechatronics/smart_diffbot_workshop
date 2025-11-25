@@ -15,7 +15,8 @@ controller_manager:
       type: velocity_controllers/JointGroupVelocityController
 
     camera_controller:
-      type: position_controllers/JointGroupPositionController
+      type: velocity_controllers/JointGroupVelocityController
+      # type: position_controllers/JointGroupPositionController
 
 velocity_controller:
   ros__parameters:
