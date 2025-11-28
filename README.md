@@ -1,6 +1,6 @@
-# SMART diffbot workshop
+# SMART ROS 2 workshop
 
-## Launch simulation with full navigation stack
+## Launch simulation
 
 ```bash
 ros2 launch smart_diffbot_bringup main.launch.py 
@@ -8,10 +8,10 @@ ros2 launch smart_diffbot_bringup main.launch.py
 
 ## Monitor with RViz
 ```bash
-ros2 launch smart_diffbot_navigation rviz.launch.py 
+ros2 launch smart_diffbot_control rviz.launch.py 
 ```
 
-## Send docking command
+## Start keyboard controller
 ```bash
-ros2 run smart_diffbot_clients docking_client 
+ros2 run smart_diffbot_control keyboard_input 
 ```

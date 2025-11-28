@@ -21,6 +21,14 @@ bin/*
 build/
 build/*
 
+# COLCON BUILD OUTPUT FOLDERS
+share/
+share/*
+install/
+install/*
+log/
+log/*
+
 # ROS GENERATED PRODUCTS
 msg_gen/
 msg_gen/*

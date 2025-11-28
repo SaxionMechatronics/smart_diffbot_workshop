@@ -10,7 +10,7 @@ from ament_index_python.packages import get_package_share_directory
 
 robot = 'smart_diffbot'
 world = 'docking_world'
-
+world = 'park_world'
 
 def generate_launch_description():
     
@@ -20,7 +20,6 @@ def generate_launch_description():
 
     ## Gazebo world 
     world_file = os.path.join(get_package_share_directory(robot+'_description'), 'model', 'world', world+'.sdf')
-
 
     ## Launch files
 
