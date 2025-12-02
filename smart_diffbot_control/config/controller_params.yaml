@@ -38,7 +38,6 @@ diff_drive_controller:
 
     publish_rate: 50.0 # You can set this higher than the controller manager update rate, but it will be throttled
 
-    use_stamped_vel: false # Depending on if cmd_vel is presented as Twist or TwistStamped
     enable_odom_tf: true
     publish_limited_velocity: true 
 

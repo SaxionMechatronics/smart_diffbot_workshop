@@ -60,7 +60,7 @@ constexpr int8_t KEYCODE_W = 0x77;
 // Some constants used in the Teleop demo
 namespace
 {
-const std::string TWIST_TOPIC = "/diff_drive_controller/cmd_vel_unstamped";
+const std::string TWIST_TOPIC = "/diff_drive_controller/cmd_vel";
 const std::string JOINT_TOPIC = "/camera_controller/commands";
 const size_t ROS_QUEUE_SIZE = 10;
 }  // namespace
@@ -111,7 +111,7 @@ private:
 
   rclcpp::Node::SharedPtr nh_;
 
-  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr twist_pub_;
+  rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr twist_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr joint_pub_;
   rclcpp::TimerBase::SharedPtr stale_timer_;
   double joint_delta_;
@@ -121,7 +121,7 @@ private:
   void timer_callback()
   {
     auto joint_msg = std::make_unique<std_msgs::msg::Float64MultiArray>();
-    auto twist_msg = std::make_unique<geometry_msgs::msg::Twist>();
+    auto twist_msg = std::make_unique<geometry_msgs::msg::TwistStamped>();
 
     joint_msg->data.resize(3);
     std::fill(joint_msg->data.begin(), joint_msg->data.end(), 0.0);
@@ -137,7 +137,7 @@ KeyboardInterface::KeyboardInterface() : joint_delta_(0.5), joint_values_({0.0, 
 {
   nh_ = rclcpp::Node::make_shared("keyboard_input");
 
-  twist_pub_ = nh_->create_publisher<geometry_msgs::msg::Twist>(TWIST_TOPIC, ROS_QUEUE_SIZE);
+  twist_pub_ = nh_->create_publisher<geometry_msgs::msg::TwistStamped>(TWIST_TOPIC, ROS_QUEUE_SIZE);
   joint_pub_ = nh_->create_publisher<std_msgs::msg::Float64MultiArray>(JOINT_TOPIC, ROS_QUEUE_SIZE);
 }
 
@@ -206,7 +206,7 @@ int KeyboardInterface::keyLoop()
     RCLCPP_DEBUG(nh_->get_logger(), "value: 0x%02X\n", c);
 
     // // Create the messages we might publish
-    auto twist_msg = std::make_unique<geometry_msgs::msg::Twist>();
+    auto twist_msg = std::make_unique<geometry_msgs::msg::TwistStamped>();
     auto joint_msg = std::make_unique<std_msgs::msg::Float64MultiArray>();
 
     joint_msg->data.resize(3);
@@ -216,22 +216,22 @@ int KeyboardInterface::keyLoop()
     {
       case KEYCODE_LEFT:
         RCLCPP_DEBUG(nh_->get_logger(), "LEFT");
-        twist_msg->angular.z = 0.5;
+        twist_msg->twist.angular.z = 0.5;
         publish_twist = true;
         break;
       case KEYCODE_RIGHT:
         RCLCPP_DEBUG(nh_->get_logger(), "RIGHT");
-        twist_msg->angular.z = -0.5;
+        twist_msg->twist.angular.z = -0.5;
         publish_twist = true;
         break;
       case KEYCODE_UP:
         RCLCPP_DEBUG(nh_->get_logger(), "UP");
-        twist_msg->linear.x = 0.5;
+        twist_msg->twist.linear.x = 0.5;
         publish_twist = true;
         break;
       case KEYCODE_DOWN:
         RCLCPP_DEBUG(nh_->get_logger(), "DOWN");
-        twist_msg->linear.x = -0.5;
+        twist_msg->twist.linear.x = -0.5;
         publish_twist = true;
         break;
       case KEYCODE_A:
