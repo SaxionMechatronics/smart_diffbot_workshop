@@ -53,6 +53,6 @@ def generate_launch_description():
         # Nodes
         navsat_transform_node,
         global_ekf_node,
-        marker_detection_node,
+        # marker_detection_node,
     ])
     

@@ -66,13 +66,13 @@
 
   
   <!-- Sensor simulation -->
-  <gazebo reference="sensor_link">
+  <gazebo reference="camera_sensor_link">
     <sensor name="camera" type="camera">       
       <always_on>1</always_on>
       <update_rate>15</update_rate>
       <visualize>true</visualize>
       <topic>camera/image_raw</topic>
-      <gz_frame_id>sensor_link</gz_frame_id>
+      <gz_frame_id>camera_sensor_link</gz_frame_id>
     </sensor>
   </gazebo>
 
