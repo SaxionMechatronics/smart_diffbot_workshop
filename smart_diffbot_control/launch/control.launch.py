@@ -26,6 +26,7 @@ def generate_launch_description():
             ('~/robot_description', '/robot_description'),
         ],
         condition=UnlessCondition(LaunchConfiguration('sim')),
+        # prefix=['gdbserver localhost:3000'],
         emulate_tty=True,
     )
 
@@ -42,12 +43,6 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=["velocity_controller", "--inactive"],
-    )
-
-    diff_drive_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_drive_controller"],
     )
 
     # Spawn diff drive controller
