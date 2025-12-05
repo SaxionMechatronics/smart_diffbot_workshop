@@ -5,26 +5,29 @@
    <gazebo>
 
     <!-- sensors -->
-    <plugin filename="ignition-gazebo-sensors-system"  name="ignition::gazebo::systems::Sensors">
+    <plugin filename="gz-sim-sensors-system"  name="gz::sim::systems::Sensors">
       <render_engine>ogre2</render_engine>
     </plugin>
 
     <!-- navsat -->
-    <plugin filename="ignition-gazebo-navsat-system" name="ignition::gazebo::systems::NavSat"/>
+    <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"/>
 
     <!-- IMU -->
-    <plugin filename="libignition-gazebo-imu-system.so" name="ignition::gazebo::systems::Imu"/>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
 
   </gazebo>
 
   
   <!-- Sensor simulation -->
+
+  <!-- TODO add a simulated camera -->
+
   <gazebo reference="navsat_link">
     <sensor name="navsat" type="navsat">
       <always_on>1</always_on>
       <update_rate>1</update_rate>
       <topic>navsat/fix</topic>
-      <ignition_frame_id>navsat_link</ignition_frame_id>
+      <gz_frame_id>navsat_link</gz_frame_id>
     </sensor>
   </gazebo>
 
@@ -33,7 +36,7 @@
       <always_on>1</always_on>
       <update_rate>15</update_rate>
       <topic>imu/data</topic>
-      <ignition_frame_id>imu_link</ignition_frame_id>
+      <gz_frame_id>imu_link</gz_frame_id>
     </sensor>
   </gazebo>
 
