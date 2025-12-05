@@ -43,7 +43,7 @@
         <material name="black" />
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
         <geometry>
           <cylinder radius="${lens_radius}" length="${lens_length}" />
         </geometry>
@@ -73,7 +73,7 @@
     </link>
 
     <!-- Camera link -->
-      <link name="${name}_link">
+    <link name="${name}_link">
       <visual>
         <origin xyz="0 ${camera_radius+camera_link_width/2.0} ${camera_link_length/2.0}" rpy="0 0 0"/>
         <geometry>
@@ -89,10 +89,18 @@
         <material name="white"/>
       </visual>
       <collision>
-        <origin xyz="0 ${camera_radius*2.0+camera_link_width/2.0} ${camera_link_length/2.0}" rpy="0 0 0"/>
+        <origin xyz="0 ${camera_radius+camera_link_width/2.0} ${camera_link_length/2.0}" rpy="0 0 0"/>
         <geometry>
           <box size="${camera_link_depth} ${camera_link_width} ${camera_link_length}" />
         </geometry>
+        <material name="white"/>
+      </collision>
+      <collision>
+        <origin xyz="0 -${camera_radius+camera_link_width/2.0} ${camera_link_length/2.0}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${camera_link_depth} ${camera_link_width} ${camera_link_length}" />
+        </geometry>
+        <material name="white"/>
       </collision>
       <xacro:box_inertia m="1.0" w="${camera_link_depth}" d="${camera_link_width}" h="${camera_link_length}"/>
     </link>
