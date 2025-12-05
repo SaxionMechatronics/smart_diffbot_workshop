@@ -10,7 +10,7 @@ from ament_index_python.packages import get_package_share_directory
 
 robot = 'smart_diffbot'
 world = 'docking_world'
-
+# world = 'park_world'
 
 def generate_launch_description():
     
@@ -20,7 +20,6 @@ def generate_launch_description():
 
     ## Gazebo world 
     world_file = os.path.join(get_package_share_directory(robot+'_description'), 'model', 'world', world+'.sdf')
-
 
     ## Launch files
 
@@ -56,11 +55,11 @@ def generate_launch_description():
     gz_bridge_node = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=['/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',
-                   '/camera/image_raw@sensor_msgs/msg/Image[ignition.msgs.Image',
-                   '/camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo',
-                   '/navsat/fix@sensor_msgs/msg/NavSatFix[ignition.msgs.NavSat',
-                   '/imu/data@sensor_msgs/msg/Imu[ignition.msgs.IMU'],
+        arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+                   '/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image',
+                   '/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
+                   '/navsat/fix@sensor_msgs/msg/NavSatFix[gz.msgs.NavSat',
+                   '/imu/data@sensor_msgs/msg/Imu[gz.msgs.IMU'],
         output='screen',
     )
 

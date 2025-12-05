@@ -7,7 +7,27 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
+# Dependencies
+set(dependencies
+  rclcpp
+  std_msgs
+  geometry_msgs
+)
+
+add_executable(keyboard_input src/keyboard_input.cpp)
+target_include_directories(keyboard_input PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+ament_target_dependencies(keyboard_input ${dependencies})
+target_compile_features(keyboard_input PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+
+install(TARGETS keyboard_input
+  DESTINATION lib/${PROJECT_NAME})
+  
 install(DIRECTORY
   launch
   DESTINATION share/${PROJECT_NAME}/

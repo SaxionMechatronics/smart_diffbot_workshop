@@ -1,24 +1,28 @@
 import os
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 from launch.conditions import IfCondition, UnlessCondition
-from launch.actions import DeclareLaunchArgument
+
 
 robot = 'smart_diffbot'
 
 
 def generate_launch_description():
-    ## Arguments
-    sim_arg = DeclareLaunchArgument(
+
+    ## arguments
+    sim = LaunchConfiguration('sim')
+
+    declared_arguments =[]
+    declared_arguments.append(
+        DeclareLaunchArgument(
             'sim',
             default_value='true',
             description='Run robot in simulation (sim:=true) or use real hardware (sim:=false)'
         )
-
-    sim = LaunchConfiguration('sim')
+    )
 
     ## Launch simulation
     launch_simulation = IncludeLaunchDescription(
@@ -26,19 +30,33 @@ def generate_launch_description():
         condition=IfCondition(sim),
     )
 
-    ## Launch actual hardware
+    ## Launch real hardware
     launch_hardware = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_bringup'), 'launch', 'hardware.launch.py')]),
         condition=UnlessCondition(sim),
     )
- 
- 
+
+    ## Launch control
+    launch_control = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_control'), 'launch', 'control.launch.py')]),
+        launch_arguments={
+            "sim": sim,
+        }.items(),
+    )
+
+    ## Launch localization
+    launch_localization = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(get_package_share_directory(robot+'_localization'), 'launch', 'localization.launch.py')]),
+    )
+    
+
     ## Launch description
-    return LaunchDescription([
-        sim_arg,
+    return LaunchDescription(declared_arguments + [
 
         # Launch
         launch_simulation,
-        launch_hardware
+        launch_hardware,
+        launch_control,
+        launch_localization,
     ])
     
