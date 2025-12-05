@@ -55,6 +55,7 @@ constexpr int8_t KEYCODE_A = 0x61;
 constexpr int8_t KEYCODE_D = 0x64;
 constexpr int8_t KEYCODE_S = 0x73;
 constexpr int8_t KEYCODE_W = 0x77;
+constexpr int8_t KEYCODE_SPACE = 0x20;
 }  // namespace
 
 // Some constants used in the Teleop demo
@@ -114,9 +115,6 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr twist_pub_;
   rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr joint_pub_;
   rclcpp::TimerBase::SharedPtr stale_timer_;
-  double joint_delta_;
-  std::vector<double> joint_values_;
-  std::string command_frame_id_;
 
   void timer_callback()
   {
@@ -133,7 +131,7 @@ private:
   }
 };
 
-KeyboardInterface::KeyboardInterface() : joint_delta_(0.5), joint_values_({0.0, 0.0, 0.0})
+KeyboardInterface::KeyboardInterface()
 {
   nh_ = rclcpp::Node::make_shared("keyboard_input");
 
@@ -183,7 +181,7 @@ int KeyboardInterface::keyLoop()
 
   puts("Reading from keyboard");
   puts("---------------------------");
-  puts("Use arrow keys to drive around");
+  puts("Use arrow keys to drive around. Space to stop driving.");
   puts("");
   puts("Use A|D keys to move camera left|right");
   puts("Use W|S keys to move camera up|down");
@@ -234,28 +232,28 @@ int KeyboardInterface::keyLoop()
         twist_msg->twist.linear.x = -0.5;
         publish_twist = true;
         break;
+      case KEYCODE_SPACE:
+        RCLCPP_DEBUG(nh_->get_logger(), "SPACE");
+        publish_twist = true;
+        break;
       case KEYCODE_A:
         RCLCPP_DEBUG(nh_->get_logger(), "A");
-        joint_values_[0] = 0.5;
-        // joint_values_[0] += joint_delta_;
+        joint_msg->data[0] = 0.5;
         publish_joint = true;
         break;
       case KEYCODE_D:
         RCLCPP_DEBUG(nh_->get_logger(), "D");
-        joint_values_[0] = - 0.5;
-        // joint_values_[0] -= joint_delta_;
+        joint_msg->data[0] = - 0.5;
         publish_joint = true;
         break;
       case KEYCODE_W:
         RCLCPP_DEBUG(nh_->get_logger(), "W");
-        joint_values_[2] = -0.5;
-        // joint_values_[2] -= joint_delta_;
+        joint_msg->data[2] = -0.5;
         publish_joint = true;
         break;
       case KEYCODE_S:
         RCLCPP_DEBUG(nh_->get_logger(), "S");
-        joint_values_[2] = 0.5;
-        // joint_values_[2] += joint_delta_;
+        joint_msg->data[2] = 0.5;
         publish_joint = true;
         break;
       case KEYCODE_Q:
@@ -275,9 +273,6 @@ int KeyboardInterface::keyLoop()
     }
     else if (publish_joint)
     {
-      joint_msg->data[0] = joint_values_[0];
-      joint_msg->data[1] = joint_values_[1];
-      joint_msg->data[2] = joint_values_[2];
       stale_timer_ = nh_->create_wall_timer(500ms, std::bind(&KeyboardInterface::timer_callback, this)); //reset the timer (0 velocity will be send if no command is received within stale period)
       joint_pub_->publish(std::move(joint_msg));
       publish_joint = false;
