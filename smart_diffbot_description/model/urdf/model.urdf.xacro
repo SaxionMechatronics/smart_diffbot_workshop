@@ -64,12 +64,6 @@
   </link>
 
   <!-- Joints -->
-  <joint name="footprint_joint" type="fixed">
-      <origin xyz="0 0 ${- base_height/2.0 - wheel_radius + wheel_suspension}" rpy="0 0 0"/>
-      <parent link="base_link"/>
-      <child link="base_footprint"/>
-  </joint>
-
   <joint name="camera_mount_joint" type="fixed">
     <origin xyz="${base_length/2.0-camera_radius*2.0} 0 ${base_height/2.0}" rpy="0 0 0"/>
     <parent link="base_link"/>
