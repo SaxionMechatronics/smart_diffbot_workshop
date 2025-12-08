@@ -29,9 +29,6 @@ camera_controller:
 
 diff_drive_controller:
   ros__parameters:
-
-    use_sim_time: true 
-
     publish_rate: 50.0 # You can set this higher than the controller manager update rate, but it will be throttled
 
     enable_odom_tf: true

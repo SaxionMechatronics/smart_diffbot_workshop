@@ -17,7 +17,7 @@
 
   <xacro:unless value="$(arg sim)">
     <!-- Real hardware -->
-    <xacro:include filename="$(find smart_diffbot_description)/model/urdf/hardware.urdf.xacro" />
+    <xacro:include filename="$(find smart_diffbot_description)/model/urdf/hardware_interface.urdf.xacro" />
   </xacro:unless>
 
 </robot>
