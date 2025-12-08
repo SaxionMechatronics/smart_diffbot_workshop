@@ -214,12 +214,12 @@ int KeyboardInterface::keyLoop()
     {
       case KEYCODE_LEFT:
         RCLCPP_DEBUG(nh_->get_logger(), "LEFT");
-        twist_msg->twist.angular.z = 0.1;
+        twist_msg->twist.angular.z = 0.5;
         publish_twist = true;
         break;
       case KEYCODE_RIGHT:
         RCLCPP_DEBUG(nh_->get_logger(), "RIGHT");
-        twist_msg->twist.angular.z = -0.1;
+        twist_msg->twist.angular.z = -0.5;
         publish_twist = true;
         break;
       case KEYCODE_UP:

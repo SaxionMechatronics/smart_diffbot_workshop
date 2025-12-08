@@ -34,8 +34,6 @@
     <xacro:box_inertia m="30.0" w="${base_width}" d="${base_length}" h="${base_height}"/>
   </link>
 
-  <link name="base_footprint"/>
-
   <link name="camera_mount"/>
   <xacro:camera name="camera" parent="camera_mount"/>
 
