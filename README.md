@@ -1,5 +1,6 @@
 # SMART diffbot (ROS 2) workshop
 This package is used to give ROS 2 workshops on several topics. It is inspired by our own [SMART diffbot package](https://github.com/SaxionMechatronics/smart_diffbot.git). The initial workshop starts with the end-result (`main` or `final`) branch to show and play around. Other lessons start with an initial state of this package, related to the topic of the workshop. These are captured in the following branches:
+
 * `modeling`
 * `control`
 * `localization`
